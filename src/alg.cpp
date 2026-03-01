@@ -4,26 +4,59 @@
 
 
 bool checkPrime(uint64_t value) {
-  // вставьте код функции
-  return true;
+	if (value < 2)
+		return false;
+	for (uint64_t i = 2; i < value; i++){
+		if (value % i == 0)
+			return false;
+	}
+	return true;
 }
 
 uint64_t nPrime(uint64_t n) {
-  // вставьте код функции
-  return 2;
+	if (n == 0) return 0; 
+	uint64_t count = 0;  
+	uint64_t nominant = 1;
+	while (count < n) {
+		nominant++;
+		if (checkPrime(nominant))
+			count++;
+	}
+	return nominant;
 }
 
 uint64_t nextPrime(uint64_t value) {
-  // вставьте код функции
-  return 2;
+	uint64_t nominant;
+	if (value < 2) {
+		nominant = 2;
+	}
+	else {
+		nominant = value + 1;
+	}
+	while (!checkPrime(nominant)) {
+		nominant++;
+	}
+	return nominant;
 }
 
 uint64_t sumPrime(uint64_t hbound) {
-  // вставьте код функции
-  return 2;
+	uint64_t sum = 0;
+	for (uint64_t i = 2; i < hbound; i++) {
+		if (checkPrime(i))
+			sum += i;
+	}
+	return sum;
 }
 
 uint64_t twinPrimes(uint64_t lbound, uint64_t hbound) {
-  // вставьте код функции
-  return 1;
+	if (hbound <= lbound) return 0;
+	uint64_t count = 0;
+	uint64_t start = lbound;
+	if (start % 2 == 0) start++;
+	if (start < 3) start = 3;
+	for (uint64_t p = start; p + 2 < hbound; p += 2) {
+		if (checkPrime(p) && checkPrime(p + 2))
+			++count;
+	}
+	return count;
 }
